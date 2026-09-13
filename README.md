@@ -10,6 +10,12 @@ The project demonstrates practical **AI Testing and AI Quality Engineering** con
 
 The **AI QA Agent** accepts a software requirement and uses an AI provider to generate structured software test cases.
 
+[![Java](https://img.shields.io/badge/Java-26-orange)](https://www.oracle.com/java/)
+[![Maven](https://img.shields.io/badge/Maven-3.x-C71A36)](https://maven.apache.org/)
+[![TestNG](https://img.shields.io/badge/TestNG-7.11.0-red)](https://testng.org/)
+[![Tests](https://img.shields.io/badge/Tests-58%20Passed-brightgreen)](https://github.com/mbarhate21-stack/AI-QA-Agent)
+[![License](https://img.shields.io/badge/License-Educational-blue)](https://github.com/mbarhate21-stack/AI-QA-Agent)
+
 The generated response is then processed through a QA pipeline that:
 
 1. Validates the AI response
