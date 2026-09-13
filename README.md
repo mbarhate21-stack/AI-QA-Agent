@@ -25,7 +25,7 @@ The generated response is then processed through a QA pipeline that:
 5. Prioritises test cases based on risk
 6. Generates professional QA reports
 
-The project is designed to demonstrate how AI can be integrated into practical software testing workflows.
+The project demonstrates how AI can be integrated into practical software testing workflows while maintaining traditional QA principles.
 
 ---
 
@@ -37,12 +37,13 @@ The project is designed to demonstrate how AI can be integrated into practical s
 * 🧪 Test-case quality validation
 * 📊 Risk-based test-case prioritisation
 * 🔐 Security test scenarios
-* ⚠️ Positive, negative, boundary, and security test scenarios
+* ⚠️ Positive, negative, boundary, and security scenarios
 * 📄 Professional TXT and JSON QA reports
 * 🔌 Multiple AI provider support
 * 🧩 Mock AI support for offline testing
 * 🏗️ AI provider factory architecture
 * 🧪 Automated TestNG validation suite
+* 🔒 Environment-variable based API-key management
 
 ---
 
@@ -70,6 +71,56 @@ Test-Case Prioritisation
 
 ---
 
+## 🏗️ Architecture
+
+The project uses a layered QA architecture to separate AI communication, test-case processing, validation, prioritisation, and reporting.
+
+```text
+                    ┌─────────────────────┐
+                    │ Software Requirement│
+                    └──────────┬──────────┘
+                               ↓
+                    ┌─────────────────────┐
+                    │   AIClientFactory   │
+                    └──────────┬──────────┘
+                               ↓
+             ┌─────────────────┼─────────────────┐
+             ↓                 ↓                 ↓
+      ┌────────────┐    ┌────────────┐    ┌────────────┐
+      │ Mock Client│    │ OpenAI     │    │ DeepSeek   │
+      └────────────┘    └────────────┘    └────────────┘
+                               │
+                               ↓
+                    ┌─────────────────────┐
+                    │ AI Response         │
+                    │ Validation          │
+                    └──────────┬──────────┘
+                               ↓
+                    ┌─────────────────────┐
+                    │ Requirement         │
+                    │ Relevance           │
+                    └──────────┬──────────┘
+                               ↓
+                    ┌─────────────────────┐
+                    │ Test Case Parser    │
+                    └──────────┬──────────┘
+                               ↓
+                    ┌─────────────────────┐
+                    │ Test Case Validator │
+                    └──────────┬──────────┘
+                               ↓
+                    ┌─────────────────────┐
+                    │ Test Case           │
+                    │ Prioritiser         │
+                    └──────────┬──────────┘
+                               ↓
+                    ┌─────────────────────┐
+                    │ QA Report Generator │
+                    └─────────────────────┘
+```
+
+---
+
 ## 🛠️ Technology Stack
 
 | Technology   | Purpose                         |
@@ -89,7 +140,7 @@ Test-Case Prioritisation
 
 ## 🧪 Testing Capabilities
 
-The project covers multiple software testing concepts, including:
+The project demonstrates multiple software testing concepts.
 
 ### Functional Test Scenarios
 
@@ -100,7 +151,7 @@ The project covers multiple software testing concepts, including:
 
 ### AI Response Testing
 
-The AI-generated response is checked for:
+The AI-generated response is validated for:
 
 * Valid JSON structure
 * Required fields
@@ -110,9 +161,9 @@ The AI-generated response is checked for:
 * Requirement relevance
 * Invalid or malformed responses
 
-### Quality Validation
+### Test-Case Quality Validation
 
-The project validates whether generated test cases contain meaningful information such as:
+Generated test cases are checked for meaningful information such as:
 
 * Test-case ID
 * Title
@@ -128,8 +179,6 @@ The project validates whether generated test cases contain meaningful informatio
 
 The AI QA Agent prioritises generated test cases according to their testing importance.
 
-Example:
-
 | Test Case Type | Priority |
 | -------------- | -------- |
 | Security       | P1       |
@@ -137,13 +186,15 @@ Example:
 | Boundary       | P3       |
 | Positive       | P4       |
 
-This demonstrates a basic **risk-based testing approach**, where higher-risk scenarios are executed before lower-risk scenarios.
+This demonstrates a basic **risk-based testing approach**, where higher-risk scenarios are considered before lower-risk scenarios.
+
+> **Note:** The priority model is a demonstration of risk-based prioritisation and can be extended with business impact, likelihood, severity, and production risk.
 
 ---
 
 ## 📊 QA Reporting
 
-The project generates professional QA reports containing:
+The project generates structured QA reports containing:
 
 * Requirement
 * Execution status
@@ -162,7 +213,7 @@ Reports can be generated in:
 * `.txt`
 * `.json`
 
-Example QA summary:
+### Example QA Summary
 
 ```text
 ==============================================
@@ -194,11 +245,11 @@ Supported providers:
         MOCK      OPENAI   DEEPSEEK
 ```
 
-This architecture makes it possible to switch AI providers without changing the core QA workflow.
+This architecture allows the AI provider to be changed without modifying the core QA workflow.
 
 ### Provider Selection
 
-The project can select the provider using:
+The provider can be selected using:
 
 ```text
 AI_PROVIDER
@@ -228,124 +279,11 @@ This provides:
 * No API cost during normal test execution
 * Stable CI-friendly test execution
 
-The live OpenAI and DeepSeek integrations are kept as separate integration tests.
+The live OpenAI and DeepSeek integrations are kept separate from the normal automated test suite because they require active API access.
 
 ---
 
-## 🏗️ Project Structure
-
-```text
-AI-QA-Agent
-│
-├── src
-│   ├── main
-│   │   └── java
-│   │       └── AI
-│   │           ├── AIClient.java
-│   │           ├── AIClientFactory.java
-│   │           ├── AIQAAgent.java
-│   │           ├── AIQAPipeline.java
-│   │           ├── AIQAReport.java
-│   │           ├── AIQAReportGenerator.java
-│   │           ├── AIQAResult.java
-│   │           ├── AIQualityValidator.java
-│   │           ├── AIRequirementRelevanceValidator.java
-│   │           ├── AIResponseValidator.java
-│   │           ├── AITestCase.java
-│   │           ├── AITestCaseGenerator.java
-│   │           ├── AITestCaseParser.java
-│   │           ├── AITestCasePrioritizer.java
-│   │           ├── AITestCaseValidator.java
-│   │           ├── DeepSeekAIClient.java
-│   │           ├── MockAIClient.java
-│   │           ├── RealAIClient.java
-│   │           └── TestCaseType.java
-│   │
-│   └── test
-│       └── java
-│           └── AI
-│               ├── AIClientFactoryTest.java
-│               ├── AIQAAgentFactoryTest.java
-│               ├── AIQAAgentTestCasesTest.java
-│               ├── AIQAPipelineTest.java
-│               ├── AIQAReportGeneratorTest.java
-│               ├── AIQualityValidationTest.java
-│               ├── AITestCaseParserTest.java
-│               ├── AITestCasePrioritizerTest.java
-│               └── ...
-│
-├── .gitignore
-├── pom.xml
-└── README.md
-```
-
----
-
-## ▶️ How to Run
-
-### Prerequisites
-
-Make sure you have installed:
-
-* Java 26
-* Maven
-* IntelliJ IDEA or another Java IDE
-* Git
-
-### Clone the repository
-
-```bash
-git clone https://github.com/mbarhate21-stack/AI-QA-Agent.git
-```
-
-### Navigate to the project
-
-```bash
-cd AI-QA-Agent
-```
-
-### Run the complete test suite
-
-```bash
-mvn clean test
-```
-
-The normal Maven test suite uses the Mock AI client and does not require paid AI API credits.
-
----
-
-## 🧪 Test Results
-
-The project has been validated using an automated TestNG suite.
-
-### Latest verified result
-
-```text
-Tests run: 58
-Failures: 0
-Errors: 0
-Skipped: 0
-```
-
-### Result
-
-```text
-58 Tests
-   ↓
-58 Passed
-   ↓
-0 Failed
-   ↓
-0 Errors
-   ↓
-0 Skipped
-```
-
-This provides automated verification of the project's AI testing, validation, parsing, prioritisation, reporting, and provider architecture.
-
----
-
-## 🔐 API Key Security
+## 🔐 Security
 
 API keys are **not stored in the source code**.
 
@@ -386,9 +324,9 @@ The project contains integrations for:
 * OpenAI
 * DeepSeek
 
-These integrations are separated from the normal automated test suite because live API calls require active API credits.
+Live AI integrations require valid API credentials and available API usage/credits.
 
-The default test suite therefore uses the Mock AI client to keep testing:
+The default automated test suite therefore uses the Mock AI client to keep testing:
 
 * Reliable
 * Repeatable
@@ -422,7 +360,21 @@ TC004 | SECURITY
 Login with SQL injection input
 ```
 
-The generated test cases are then validated, prioritised, and included in the QA report.
+The generated test cases are then:
+
+```text
+Generated
+    ↓
+Validated
+    ↓
+Checked for relevance
+    ↓
+Parsed
+    ↓
+Prioritised
+    ↓
+Reported
+```
 
 ---
 
@@ -452,48 +404,55 @@ This project demonstrates practical knowledge of:
 
 ---
 
-## 🔮 Future Improvements
+## 🧪 Test Automation
 
-Potential future enhancements include:
+The project uses **TestNG** to automate validation of the application's major components.
 
-* Selenium UI test generation
-* Playwright integration
-* Automatic Jira defect creation
-* CI/CD integration with GitHub Actions
-* Advanced AI-based defect detection
-* AI-generated test data
-* Requirement traceability matrix
-* HTML dashboard reporting
-* Additional AI providers
-* LLM response quality scoring
-* Automated regression-test selection
+The automated suite covers areas such as:
 
----
+* AI client factory
+* AI QA agent
+* QA pipeline
+* AI response validation
+* AI quality validation
+* Test-case parsing
+* Test-case prioritisation
+* QA report generation
+* Provider selection
 
-## 👨‍💻 Author
+Run the complete suite using:
 
-**Mayur Barhate**
-
-B.Tech — Mechatronics Engineering
-
-Interested in:
-
-* Software Testing
-* QA Automation
-* API Testing
-* AI Testing
-* AI Quality Engineering
-
-### GitHub
-
-https://github.com/mbarhate21-stack
-
-### AI QA Agent
-
-https://github.com/mbarhate21-stack/AI-QA-Agent
+```bash
+mvn clean test
+```
 
 ---
 
-## ⭐ Project Goal
+## 📈 Test Results
 
-The goal of this project is to demonstrate how **AI can be integrated into modern software testing workflows while maintaining traditional QA principles such as validation, risk assessment, structured test design, and reporting.**
+### Latest Verified Result
+
+```text
+Tests run: 58
+Failures: 0
+Errors: 0
+Skipped: 0
+```
+
+### Result Summary
+
+```text
+58 Tests
+   ↓
+58 Passed
+   ↓
+0 Failed
+   ↓
+0 Errors
+   ↓
+0 Skipped
+```
+
+This provides automated verification of the project's:
+
+* AI testing workf
