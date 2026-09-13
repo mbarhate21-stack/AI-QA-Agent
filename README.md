@@ -1,8 +1,15 @@
-# AI QA Agent
+# 🤖 AI QA Agent
 
-An AI-powered software testing assistant built with Java, TestNG, Maven, and multiple AI providers.
+An AI-powered software testing assistant built with **Java, TestNG, Maven, and multiple AI providers**.
 
-The project demonstrates how AI can assist software testers by generating structured test cases from requirements, validating AI responses, prioritising test cases, and generating professional QA reports.
+The project demonstrates how AI can assist software testers by:
+
+- Generating structured test cases from software requirements
+- Validating AI-generated responses
+- Checking requirement relevance
+- Prioritising test cases based on risk
+- Generating professional QA reports
+- Supporting multiple AI providers
 
 ---
 
@@ -16,9 +23,7 @@ The generated response is then processed through a QA pipeline that:
 2. Checks requirement relevance
 3. Parses structured test cases
 4. Prioritises test cases
-5. Generates QA execution reports
-6. Supports multiple AI providers
-7. Supports offline testing using Mock AI
+5. Generates a professional QA report
 
 The project is designed to demonstrate practical **AI Testing / AI Quality Engineering** concepts.
 
